@@ -10,7 +10,7 @@ const Gameboard = (() => {
         GameController.resetCurrentPlayer();
         GameController.resetAnouncement();
         gameBoard = ["", "", "", "", "", "", "", "", ""];
-
+        
         boardCells.forEach((cell) => {
                 cell.classList.remove('clicked');
             });
@@ -119,5 +119,117 @@ const Player = (name, sign) => {
 // game flow controller factory function
 const GameController =(() => {
 
+    // game starter
+    const startRestartBtn = document.querySelector(".restart");
+
+    let playersRegistered = false;
+
+    startRestartBtn.addEventListener('click', () => {
+
+        if (playersRegistered) {
+
+            Gameboard.resetGameboard();
+
+        } else if (!playersRegistered) {
+
+            registerOverlay.style.visibility = 'visible';
+
+        }
+
+    })
+
+
+    // Register players
+    const registerOverlay = document.querySelector(".overlay-cont");
+    const registerForm = document.querySelector(".register-players-form");
+
+    registerForm.addEventListener('submit', (event) => {
+
+        event.preventDefault();
+        playersRegistered = true;
+        Gameboard.resetGameboard();
+
+        register();
+
+        registerOverlay.style.visibility = "hidden";
+        // registerForm.reset();
+    })
+
+    registerOverlay.addEventListener('click', function(e) {
+
+        if (e.target === registerOverlay) {
+
+            registerOverlay.style.visibility = "hidden";
+
+        }
+
+    });
+
+
+// Register
+
+    let teamPlayers;
+    let currentPlayerIndex = 0;
+
+    const player1 = document.querySelector(".player1-name");
+    const player2 = document.querySelector(".player2-name");
+
+    const register = () => {
+
+        const player1name = document.querySelector("#player1-name").value;
+        const player2name = document.querySelector("#player2-name").value;
+
+        player1.textContent = player1name;
+        player2.textContent = player2name;
+
+        teamPlayers = [Player(player1name, "O"), Player(player2name, "X")];
+
+    }
+
+
+    // handles click event for each play
+    const play = (e) => {
+
+        let index = e.target.id;
+        Gameboard.update(index, teamPlayers[currentPlayerIndex].sign);
+        switchTurns();
+
+    }
+
+    // function to change turns of players
+    const switchTurns = () => {
+
+        currentPlayerIndex = currentPlayerIndex === 0 ? 1 : 0;
+
+    }
+
+    const announceText = document.querySelector(".anouncement");
+    const announceWinner = () => {
+
+        announceText.innerHTML = `<span class="blue-span">&lt;</span> Your Winner is ${teamPlayers[currentPlayerIndex].name} <span class="blue-span">/&gt;</span>`;
+
+    };
+
+    const announceTie = () => {
+
+        announceText.innerHTML = `<span class="blue-span">&lt;</span> Chei! It's a Tie! <span class="blue-span">/&gt;</span>`;
+
+    };
+
+    const resetCurrentPlayer = () => {
+
+        currentPlayerIndex = 0;
+
+    }
+
+    const resetAnouncement = () => {
+
+        announceText.innerHTML = "";
+
+    }
+
+    return {
+        play, switchTurns, announceWinner, announceTie, resetCurrentPlayer, resetAnouncement, register,
+    }
 
 })();
