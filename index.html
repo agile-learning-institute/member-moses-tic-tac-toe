@@ -9,9 +9,49 @@
 </head>
 <body>
     <div class="container">
-        <div class="heading">Still Working progress!</div>
-        <img src="./assets/temp-pic.png" alt="Temporary Picture" class="temp-pic">
-        <div class="direction"><span class="red-span">&lt;</span> If you reeeeeeally insist & can't wait, Open Console to follow <span class="red-span">/&gt;</span></div>
+
+        <div class="heading">Tic Tac Toe</div>
+        <div class="play-ground">
+
+            <div class="player-cont">
+                <img src="./assets/person1.svg" alt="player1-icon" class="player1-icon" width="100px">
+                <div class="player1-name name"></div>
+            </div>
+
+            <div class="gameboard-cont">
+                <div class="board-cell zero clicked" id="0"></div>
+                <div class="board-cell one clicked" id="1"></div>
+                <div class="board-cell two clicked" id="2"></div>
+                <div class="board-cell three clicked" id="3"></div>
+                <div class="board-cell four clicked" id="4"></div>
+                <div class="board-cell five clicked" id="5"></div>
+                <div class="board-cell six clicked" id="6"></div>
+                <div class="board-cell seven clicked" id="7"></div>
+                <div class="board-cell eight clicked" id="8"></div>
+            </div>
+
+            <div class="player-cont">
+                <img src="./assets/person2.svg" alt="player2-icon" class="player2-icon"  width="100px">
+                <div class="player2-name name"></div>
+            </div>
+
+        </div>
+
+        <div class="anouncement"></div>
+        <!-- <div class="anouncement"><span class="blue-span">&lt;</span> Here is your winner! <span class="blue-span">/&gt;</span></div> -->
+        <button class="restart">Start/Replay</button>
+
+        <div class="overlay-cont">
+            <div class="form-cont" id="form-cont">
+                <form class="register-players-form" id="registerPlayersForm">
+                  <h3>Register Players</h3>
+                  <input class="input" type="text" id="player1-name" name="player1-name" placeholder="Player 1 Name" required maxlength="10">
+                  <input class="input" type="text" id="player2-name" name="player2-name" placeholder="Player 2 Name" required maxlength="10">
+                  <button class="submit-btn" type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+
     </div>
 </body>
 </html>
